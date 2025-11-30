@@ -6,10 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:start": "docker-compose -f db/docker-compose.yml up -d",
+    "db:stop": "docker-compose -f db/docker-compose.yml down",
+    "db:setup": "npx prisma generate && npx prisma db push && npx tsx prisma/seed.ts",
+    "db:reset": "npx prisma generate && npx prisma db push --force-reset && npx tsx prisma/seed.ts",
+    "db:studio": "npx prisma studio",
+    "setup": "npm install && npm run db:start && sleep 3 && npm run db:setup"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "date-fns": "^4.1.0",
     "next": "16.0.6",
+    "octokit": "^5.0.5",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

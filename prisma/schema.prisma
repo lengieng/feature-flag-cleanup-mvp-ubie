@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Flag {
+  id              String     @id @default(cuid())
+  key             String     @unique
+  name            String
+  description     String?
+  createdAt       DateTime
+  createdBy       String
+  rolloutPercent  Int        @default(0)
+  lastEvaluatedAt DateTime?
+  status          FlagStatus @default(ACTIVE)
+
+  cleanupJobs CleanupJob[]
+
+  @@index([status])
+  @@index([rolloutPercent])
+  @@index([lastEvaluatedAt])
+}
+
+enum FlagStatus {
+  ACTIVE
+  EXPIRED
+  CLEANUP_PENDING
+  CLEANUP_IN_PROGRESS
+  CLEANED_UP
+}
+
+model CleanupJob {
+  id                String        @id @default(cuid())
+  flagId            String
+  flag              Flag          @relation(fields: [flagId], references: [id], onDelete: Cascade)
+  githubIssueUrl    String?
+  githubIssueNumber Int?
+  githubPrUrl       String?
+  status            CleanupStatus @default(PENDING)
+  triggeredAt       DateTime      @default(now())
+  completedAt       DateTime?
+  errorMessage      String?
+
+  @@index([status])
+  @@index([flagId])
+  @@index([triggeredAt])
+}
+
+enum CleanupStatus {
+  PENDING
+  ISSUE_CREATED
+  IN_PROGRESS
+  PR_OPENED
+  COMPLETED
+  FAILED
+}
