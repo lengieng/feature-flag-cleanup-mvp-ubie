@@ -301,7 +301,7 @@ docker-compose up -d    # Start fresh
 **Validation Failed: {"value":["copilot"],"resource":"Issue","field":"assignees","code":"invalid"}:**
 
 - Make sure your GitHub account has Copilot Pro/Pro+
-- If not, modify lib/github.ts and replace `assignees: ['copilot']` with `assignees: ['YOUR_USERNAME']` to bypass this error
+- If not, modify `lib/github.ts` and replace `assignees: ['copilot']` with `assignees: ['YOUR_USERNAME']` to bypass this error
 
 ## 📝 Notes
 
