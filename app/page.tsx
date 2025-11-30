@@ -54,14 +54,6 @@ export default async function Home() {
           </div>
           <FlagTable flags={flags} />
         </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-gray-500 text-sm">
-          <p>
-            Built with Next.js, Prisma, PostgreSQL, and GitHub Copilot
-            integration
-          </p>
-        </div>
       </div>
     </div>
   );
