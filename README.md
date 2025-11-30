@@ -225,12 +225,12 @@ Flag
   - id, key, name, description
   - createdAt, createdBy
   - rolloutPercent, lastEvaluatedAt
-  - status (ACTIVE, EXPIRED, CLEANUP_PENDING, etc.)
+  - status (ACTIVE, EXPIRED, CLEANUP_PENDING, CLEANUP_IN_PROGRESS, CLEANED_UP)
 
 CleanupJob
   - id, flagId
-  - githubIssueUrl, githubIssueNumber
-  - status, triggeredAt, completedAt
+  - githubIssueUrl, githubIssueNumber, githubPrUrl
+  - status, triggeredAt, completedAt, errorMessage
 ```
 
 ## 🛠️ Available Scripts
